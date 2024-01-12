@@ -129,6 +129,12 @@
           <option value="E501" />
           <option value="W29" />
           <option value="E501" />
+          <option value="W29" />
+          <option value="E501" />
+          <option value="W29" />
+          <option value="E501" />
+          <option value="W29" />
+          <option value="E501" />
         </list>
       </option>
     </inspection_tool>
@@ -138,6 +144,7 @@
           <option value="N802" />
           <option value="N806" />
           <option value="N801" />
+          <option value="N803" />
         </list>
       </option>
     </inspection_tool>
