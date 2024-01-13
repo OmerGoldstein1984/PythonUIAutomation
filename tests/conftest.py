@@ -8,6 +8,13 @@ import allure
 import pytest
 from selenium import webdriver
 
+from utils.utils import utils
+
+
+def pytest_addoption(parser):
+    parser.addoption("--browsername", action="store", default="ch", help="ch|ff")
+    parser.addoption("--env", action="store", default="test", help="test|production")
+
 
 @pytest.hookimpl(tryfirst=True, hookwrapper=True)
 def pytest_runtest_makereport(item, call):
@@ -28,8 +35,15 @@ def pytest_runtest_makereport(item, call):
 @pytest.fixture(scope="function", autouse=True)
 def setup(request):
     global driver
-    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-    driver.get("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
+    browsername = request.config.getoption("--browsername")
+    env = request.config.getoption("--env")
+    site_url = utils.read_config(env, "url")
+    print(site_url)
+    if browsername == "ch":
+        driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+    # driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+    driver.get(site_url)
     request.cls.driver = driver
     yield
+
     driver.quit()
