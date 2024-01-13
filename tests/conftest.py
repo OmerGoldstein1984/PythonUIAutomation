@@ -1,12 +1,11 @@
-import allure
-import pytest
-from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.firefox.service import Service as FirefoxService
 from webdriver_manager.chrome import ChromeDriverManager
 
 import allure
 import pytest
 from selenium import webdriver
+from webdriver_manager.firefox import GeckoDriverManager
 
 from utils.utils import utils
 
@@ -38,12 +37,11 @@ def setup(request):
     browsername = request.config.getoption("--browsername")
     env = request.config.getoption("--env")
     site_url = utils.read_config(env, "url")
-    print(site_url)
     if browsername == "ch":
         driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-    # driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+    elif browsername == "ff":
+        driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
     driver.get(site_url)
     request.cls.driver = driver
     yield
-
     driver.quit()
