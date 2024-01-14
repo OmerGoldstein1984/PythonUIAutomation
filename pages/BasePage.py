@@ -17,9 +17,11 @@ class BasePage:
         self.driver.find_element(*locator).clear()
         self.driver.find_element(*locator).send_keys(textValue)
 
+    # get text from element
     def getText(self, locator):
         return self.driver.find_element(*locator).text
 
+    # check if element is displayed to the user
     def isElementDisplayed(self, locator):
         try:
             self.driver.find_element(*locator).is_displayed()
@@ -27,5 +29,6 @@ class BasePage:
         except NoSuchElementException:
             return False
 
+    # wait for element to be part of DOM
     def waitForElement(self, locator):
         self.wait.until(EC.visibility_of_element_located(locator))
