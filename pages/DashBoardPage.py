@@ -4,12 +4,13 @@ from pages.BasePage import BasePage
 
 
 class DashBoardPage(BasePage):
+    DASHBOARD_CAPTION = (By.XPATH,"//h6[text()='Dashboard']")
     USERNAME_CLASS = (By.CLASS_NAME,"oxd-userdropdown-name")
     LOGOUT_TEXT_SELECTOR = (By.PARTIAL_LINK_TEXT,"Logout")
 
     def __init__(self, driver):
         super().__init__(driver)
-        self.waitForElement(self.USERNAME_CLASS)
+        self.waitForElement(self.DASHBOARD_CAPTION)
 
     def getUserName(self):
         return self.getText(self.USERNAME_CLASS)
